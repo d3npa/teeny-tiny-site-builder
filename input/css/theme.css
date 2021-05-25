@@ -1,0 +1,62 @@
+@font-face {
+	font-family: "Fira Code";
+	src: url(/ttf/FiraCode-Regular.ttf);
+}
+
+@font-face {
+	font-family: "Kosugi Maru";
+	src: url(/ttf/KosugiMaru-Regular.ttf);
+}
+
+html {
+	color: #ffddf4;
+	background-color: #101;
+	font-size: 12pt;
+	padding: 0 1rem;
+}
+
+* {
+	font-family: 'Fira Code', 'Kosugi Maru', monospace;
+}
+
+body {
+	min-width: 30ch;
+	max-width: 80ch;
+	margin: 1rem auto;
+}
+
+a {
+	color: #ffddf4;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #101;
+	background-color: #ffddf4;
+}
+
+#navigation {
+	display: flex;
+}
+
+#navigation > #left {
+	text-align: left;
+	flex: 3;
+}
+
+#navigation > #right {
+	text-align: right;
+}
+
+#navbar > div {
+	display: inline-block;
+}
+
+#content {
+	margin-top: 2ch;
+}
+
+pre {
+	tab-size: 4;
+	-moz-tab-size: 4;
+}

